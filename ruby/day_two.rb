@@ -9,15 +9,9 @@ class PasswordPolicy
   def valid?(password, validation_strategy)
     case validation_strategy
     when :count
-      occurrences = password.count(letter)
-      occurrences >= range.first && occurrences <= range.last
+      (range.first..range.last).cover?(password.count(letter))
     when :position
-      chars = range.map { |n| password[n - 1] }
-
-      return false if chars.none? { |c| c == letter }
-      return false if chars.all? { |c| c == letter }
-
-      chars.any? { |c| c == letter }
+      range.map { |n| password[n - 1] == letter }.uniq.count == 1
     else
       raise "Unknown validation strategy: #{validation_strategy}"
     end

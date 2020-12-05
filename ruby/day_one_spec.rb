@@ -13,14 +13,14 @@ RSpec.describe DayOne do
       LINES
     end
 
-    it 'multiplies together the two entries that sum to the desired amount' do
+    it 'finds product of 2 entries to sum to 2020' do
       service = DayOne.new(input)
-      expect(service.product_of_entries(2, 2020)).to eq(514579)
+      expect(service.product_of_entries(2, 2020)).to eq(514_579)
     end
 
-    it 'multiplies entries together' do
+    it 'finds product of 3 entries that sum to 2020' do
       service = DayOne.new(input)
-      expect(service.product_of_entries(3, 2020)).to eq(241861950)
+      expect(service.product_of_entries(3, 2020)).to eq(241_861_950)
     end
   end
 end
