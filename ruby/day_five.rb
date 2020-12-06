@@ -10,6 +10,13 @@ class BoardingPassList
   def seat_ids
     @seat_ids ||= passes.map(&:seat_id).sort
   end
+
+  def find_seat_id
+    seat_ids.each_with_index do |seat, idx|
+      return seat + 1 if seat_ids[idx + 1] != seat + 1
+    end
+    return 'Failed to find missing seat'
+  end
 end
 
 class BoardingPass

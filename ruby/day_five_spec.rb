@@ -12,7 +12,7 @@ RSpec.describe BoardingPass do
     end
 
     it 'correctly reads a collection of seat codes into boarding passes' do
-      passes = BoardingPass.import(seat_codes)
+      passes = BoardingPassList.new(seat_codes).passes
 
       expect(passes[0].seat_id).to eq(567)
       expect(passes[1].seat_id).to eq(119)
