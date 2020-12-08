@@ -1,8 +1,8 @@
-require_relative './day_seven'
+require_relative './day_seven_live'
 
-RSpec.describe BagGraph do
-  let(:setup) do
-    <<~TXT
+RSpec.describe Graph do
+  let(:rules) do
+    <<~LINES
       light red bags contain 1 bright white bag, 2 muted yellow bags.
       dark orange bags contain 3 bright white bags, 4 muted yellow bags.
       bright white bags contain 1 shiny gold bag.
@@ -12,17 +12,16 @@ RSpec.describe BagGraph do
       vibrant plum bags contain 5 faded blue bags, 6 dotted black bags.
       faded blue bags contain no other bags.
       dotted black bags contain no other bags.
-    TXT
+    LINES
   end
 
-  it 'builds graph and counts parents' do
-    bag_graph = BagGraph.build(setup.split("\n"))
-    rents = bag_graph.all_parents('shiny gold').uniq
-    expect(rents.count).to eq(4)
+  it 'can count all containing bags' do
+    graph = Graph.build(rules)
+    expect(graph.all_outers('shiny gold').uniq.count).to eq(4)
   end
 
-  let(:setup_two) do
-    <<~TXT
+  let(:rules_two) do
+    <<~LINES
       shiny gold bags contain 2 dark red bags.
       dark red bags contain 2 dark orange bags.
       dark orange bags contain 2 dark yellow bags.
@@ -30,11 +29,11 @@ RSpec.describe BagGraph do
       dark green bags contain 2 dark blue bags.
       dark blue bags contain 2 dark violet bags.
       dark violet bags contain no other bags.
-    TXT
+    LINES
   end
 
-  it 'counts total number of children' do
-    bag_graph = BagGraph.build(setup_two.split("\n"))
-    expect(bag_graph.count_children('shiny gold') - 1).to eq(126)
+  it 'can count the number of bags contained' do
+    graph = Graph.build(rules_two)
+    expect(graph.product_of_children('shiny gold') - 1).to eq(126)
   end
 end
