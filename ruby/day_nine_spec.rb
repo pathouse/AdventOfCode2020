@@ -1,6 +1,7 @@
 require_relative './day_nine'
+require_relative './day_nine_window'
 
-RSpec.describe Cipher do
+RSpec.describe 'Cipher and WindowCipher' do
   let(:input) do
     <<~LINES
       35
@@ -26,11 +27,23 @@ RSpec.describe Cipher do
     LINES
   end
 
-  it 'returns the first invalid number' do
-    expect(Cipher.new(input).first_invalid_number(5)).to eq(127)
+  describe Cipher do
+    it 'returns the first invalid number' do
+      expect(Cipher.new(input).first_invalid_number(5)).to eq(127)
+    end
+
+    it 'returns min max sum of contiguous range that adds up to first invalid number' do
+      expect(Cipher.new(input).contiguous_range_min_max_sum(5)).to eq(62)
+    end
   end
 
-  it 'returns min max sum of contiguous range that adds up to first invalid number' do
-    expect(Cipher.new(input).contiguous_range_min_max_sum(5)).to eq(62)
+  describe WindowCipher do
+    it 'returns the first invalid number' do
+      expect(WindowCipher.new(input).first_invalid_number(5)).to eq(127)
+    end
+
+    it 'returns min max sum of contiguous range that adds up to first invalid number' do
+      expect(WindowCipher.new(input).contiguous_range_min_max_sum(5)).to eq(62)
+    end
   end
 end

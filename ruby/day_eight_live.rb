@@ -13,16 +13,12 @@ class ProgramFixer
       when 'nop'
         next if instruction.arg <= 0
 
-        instructions_copy = instructions.dup
-        instructions_copy[idx] = Instruction.new('jmp', instruction.arg)
-        result = Program.new(instructions_copy).run
+        result = check_swap(idx, 'jmp', instruction.arg)
         return result[:acc] if result[:reason] == :halt
       when 'jmp'
         next unless instruction.arg <= 0
 
-        instructions_copy = instructions.dup
-        instructions_copy[idx] = Instruction.new('nop', instruction.arg)
-        result = Program.new(instructions_copy).run
+        result = check_swap(idx, 'nop', instruction.arg)
         return result[:acc] if result[:reason] == :halt
       end
     end
@@ -30,6 +26,12 @@ class ProgramFixer
   end
 
   private
+
+  def check_swap(idx, cmd, arg)
+    instructions_copy = instructions.dup
+    instructions_copy[idx] = Instruction.new(cmd, arg)
+    Program.new(instructions_copy).run
+  end
 
   def parse_input(input)
     input.split("\n").map do |line|
