@@ -63,7 +63,6 @@ class Graph
     bag = @graph[color]
     return 1 if bag.inners.empty?
 
-
     1 + bag.inners.sum { |i| i.count * product_of_children(i.inner) }
   end
 end

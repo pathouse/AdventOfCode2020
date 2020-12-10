@@ -15,7 +15,7 @@ class BoardingPassList
     seat_ids.each_with_index do |seat, idx|
       return seat + 1 if seat_ids[idx + 1] != seat + 1
     end
-    return 'Failed to find missing seat'
+    'Failed to find missing seat'
   end
 end
 

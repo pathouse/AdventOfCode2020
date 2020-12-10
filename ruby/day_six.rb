@@ -28,7 +28,7 @@ class GroupCounter
   end
 
   def all_answers
-    @all_answers ||= str.split('').reject { |c| !c.match(/[a-z]/) }
+    @all_answers ||= str.split('').select { |c| c.match(/[a-z]/) }
   end
 
   def uniq_answers

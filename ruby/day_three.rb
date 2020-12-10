@@ -31,7 +31,7 @@ class TobogganMap
 
   def parse_input(str)
     str.split("\n").map do |line|
-      line.strip.split('').map { |char| char == '.' ? false : true }
+      line.strip.split('').map { |char| char != '.' }
     end
   end
 end
